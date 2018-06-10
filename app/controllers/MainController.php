@@ -3,9 +3,17 @@
 namespace app\controllers;
 
 
-class MainController {
+use ishop\App;
+
+class MainController extends AppController {
 
   public function indexAction() {
-    echo "Hello";
+    $this->layout = 'main';
+
+    $this->setMeta(App::$app->getProperty('shop_name'), 'Описание страницы', 'Ключи');
+
+    $name = 'Andrey';
+    $age = '39';
+    $this->set(compact('name', 'age'));
   }
 }
