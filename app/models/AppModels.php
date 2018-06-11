@@ -1,16 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: andrey
- * Date: 11.06.18
- * Time: 9:22
- */
 
 namespace app\models;
 
 
 use ishop\base\Model;
 
+/**
+ * Class AppModels
+ *
+ * @package app\models
+ */
 class AppModels extends Model {
 
 
