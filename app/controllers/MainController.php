@@ -4,7 +4,14 @@ namespace app\controllers;
 
 
 use ishop\App;
+use ishop\Cache;
+use R;
 
+/**
+ * Class MainController
+ *
+ * @package app\controllers
+ */
 class MainController extends AppController {
 
   public function indexAction() {
@@ -12,8 +19,23 @@ class MainController extends AppController {
 
     $this->setMeta(App::$app->getProperty('shop_name'), 'Описание страницы', 'Ключи');
 
-    $name = 'Andrey';
+    $myname = 'Andrey';
     $age = '39';
-    $this->set(compact('name', 'age'));
+
+
+    $names = R::findAll('users');
+
+    $cache = Cache::instance();
+
+    $data = $cache->get('names');
+    //$cache->delete('names');
+
+    if (!$data) {
+      $cache->set('names', $names);
+    }
+
+    $name = R::findOne('users', 'id = ?', [2]);
+
+    $this->set(compact('myname', 'age', 'names'));
   }
 }
