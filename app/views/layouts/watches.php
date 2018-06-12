@@ -2,8 +2,9 @@
 <html>
 <head>
   <?= $this->getMeta(); ?>
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
-          media="all"/>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="megamenu/css/ionicons.min.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="megamenu/css/style.css" rel="stylesheet" type="text/css" media="all"/>
 
     <!--Custom-Theme-files-->
     <!--theme-style-->
@@ -11,9 +12,6 @@
     <!--//theme-style-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
-    <link href="css/memenu.css" rel="stylesheet" type="text/css" media="all"/>
-    <!--start-menu-->
 
 </head>
 <body>
@@ -66,7 +64,7 @@
     <div class="container">
         <div class="header">
             <div class="col-md-9 header-left">
-                <div class="top-nav">
+                <!--<div class="top-nav">
                     <ul class="memenu skyblue">
                         <li class="active"><a href="index.html">Home</a></li>
                         <li class="grid"><a href="#">Men</a>
@@ -317,7 +315,25 @@
                         <li class="grid"><a href="contact.html">Contact</a>
                         </li>
                     </ul>
+                </div>-->
+                <div class="menu-container">
+                    <div class="menu">
+                        <?php new \app\widgets\menu\Menu([
+                          /**
+                           * Определяем пользовательские настройки виджета меню
+                           */
+                          'tpl'         => WWW . '/menu/menu.php',
+                          /*'attrs'       => [
+                            'style' => 'border: 1px solid red;',
+                            'id' => 'menu',
+                          ],*/
+                          //'table'     => '',
+                          //'cache'     => ,
+                          //'cacheKey'  => '',
+                        ]);?>
+                    </div>
                 </div>
+
                 <div class="clearfix"></div>
             </div>
             <div class="col-md-3 header-right">
@@ -442,5 +458,6 @@
 </script>
 <!--End-slider-script-->
 <script src="js/main.js"></script>
+<script src="megamenu/js/megamenu.js"></script>
 </body>
 </html>
