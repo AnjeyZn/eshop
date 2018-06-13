@@ -1,20 +1,23 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
 <!DOCTYPE html>
 <html>
 <head>
-  <base href="/">
-  <?= $this->getMeta(); ?>
-  <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
-  <link href="megamenu/css/ionicons.min.css" rel="stylesheet" type="text/css" media="all"/>
-  <link href="megamenu/css/style.css" rel="stylesheet" type="text/css" media="all"/>
-  <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
-
-    <!--Custom-Theme-files-->
-  <!--theme-style-->
-  <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
-  <!--//theme-style-->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
+    <base href="/">
+  <?=$this->getMeta();?>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="megamenu/css/ionicons.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="megamenu/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+    <!--theme-style-->
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!--//theme-style-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body>
 <!--top-header-->
@@ -25,7 +28,7 @@
                 <div class="drop">
                     <div class="box">
                         <select id="currency" tabindex="4" class="dropdown drop">
-                            <?php new \app\widgets\currency\Currency();?>
+                          <?php new \app\widgets\currency\Currency(); ?>
                         </select>
                     </div>
                     <div class="box1">
@@ -44,11 +47,10 @@
                     <a href="checkout.html">
                         <div class="total">
                             <span class="simpleCart_total"></span></div>
-                        <img src="images/cart-1.png" alt=""/>
+                        <img src="images/cart-1.png" alt="" />
                     </a>
-                    <p><a href="javascript:;" class="simpleCart_empty">Empty
-                            Cart</a></p>
-                    <div class="clearfix"></div>
+                    <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+                    <div class="clearfix"> </div>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -67,40 +69,28 @@
         <div class="header">
             <div class="col-md-9 header-left">
                 <div class="menu-container">
-                    <div class="menu top-nav">
-                        <?php new \app\widgets\menu\Menu([
-                          /**
-                           * Определяем пользовательские настройки виджета меню
-                           */
-                          'tpl'         => WWW . '/menu/menu.php',
-                          /*'attrs'       => [
-                            'style' => 'border: 1px solid red;',
-                            'id' => 'menu',
-                          ],*/
-                          //'table'     => '',
-                          //'cache'     => ,
-                          //'cacheKey'  => '',
-                        ]);?>
+                    <div class="menu">
+                      <?php new \app\widgets\menu\Menu([
+                        'tpl' => WWW . '/menu/menu.php',
+                      ]); ?>
                     </div>
                 </div>
-
-                <div class="clearfix"></div>
+                <div class="clearfix"> </div>
             </div>
             <div class="col-md-3 header-right">
                 <div class="search-bar">
-                    <input type="text" value="Search" onfocus="this.value = '';"
-                           onblur="if (this.value == '') {this.value = 'Search';}">
+                    <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
                     <input type="submit" value="">
                 </div>
             </div>
-            <div class="clearfix"></div>
+            <div class="clearfix"> </div>
         </div>
     </div>
 </div>
 <!--bottom-header-->
 
 <div class="content">
-  <?= $content; ?>
+  <?=$content;?>
 </div>
 
 <!--information-starts-->
@@ -110,12 +100,9 @@
             <div class="col-md-3 infor-left">
                 <h3>Follow Us</h3>
                 <ul>
-                    <li><a href="#"><span class="fb"></span><h6>Facebook</h6>
-                        </a></li>
-                    <li><a href="#"><span class="twit"></span><h6>Twitter</h6>
-                        </a></li>
-                    <li><a href="#"><span class="google"></span><h6>Google+</h6>
-                        </a></li>
+                    <li><a href="#"><span class="fb"></span><h6>Facebook</h6></a></li>
+                    <li><a href="#"><span class="twit"></span><h6>Twitter</h6></a></li>
+                    <li><a href="#"><span class="google"></span><h6>Google+</h6></a></li>
                 </ul>
             </div>
             <div class="col-md-3 infor-left">
@@ -144,8 +131,7 @@
                     <span>Lorem ipsum dolor,</span>
                     Glasglow Dr 40 Fe 72.</h4>
                 <h5>+955 123 4567</h5>
-                <p><a href="mailto:example@email.com">contact@example.com</a>
-                </p>
+                <p><a href="mailto:example@email.com">contact@example.com</a></p>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -158,27 +144,20 @@
         <div class="footer-top">
             <div class="col-md-6 footer-left">
                 <form>
-                    <input type="text" value="Enter Your Email"
-                           onfocus="this.value = '';"
-                           onblur="if (this.value == '') {this.value = 'Enter Your Email';}">
+                    <input type="text" value="Enter Your Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter Your Email';}">
                     <input type="submit" value="Subscribe">
                 </form>
             </div>
             <div class="col-md-6 footer-right">
-                <p>© 2015 Luxury Watches. All Rights Reserved | Design by <a
-                            href="http://w3layouts.com/" target="_blank">W3layouts</a>
-                </p>
+                <p>© 2015 Luxury Watches. All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
             </div>
             <div class="clearfix"></div>
         </div>
     </div>
 </div>
 <!--footer-end-->
-
-<!--jQuery(necessary for Bootstrap's JavaScript plugins)-->
 <script src="js/jquery-1.11.0.min.js"></script>
-<script src="js/simpleCart.min.js"></script>
-
+<script src="js/simpleCart.min.js"> </script>
 <!--dropdown-->
 <script src="js/jquery.easydropdown.js"></script>
 <!--Slider-Starts-Here-->
@@ -203,13 +182,18 @@
 
     });
 </script>
-<!--End-slider-script-->
-<script src="js/main.js"></script>
-<!-- FlexSlider -->
+<script src="megamenu/js/megamenu.js"></script>
 <script src="js/imagezoom.js"></script>
 <script defer src="js/jquery.flexslider.js"></script>
-<script src="megamenu/js/megamenu.js"></script>
-<!--dropdown-->
+<script>
+    // Can also be used with $(document).ready()
+    $(window).load(function() {
+        $('.flexslider').flexslider({
+            animation: "slide",
+            controlNav: "thumbnails"
+        });
+    });
+</script>
 <script src="js/jquery.easydropdown.js"></script>
 <script type="text/javascript">
     $(function() {
@@ -233,16 +217,15 @@
 
     });
 </script>
-<script>
-    // Can also be used with $(document).ready()
-    $(window).load(function() {
-        $('.flexslider').flexslider({
-            animation: "slide",
-            controlNav: "thumbnails"
-        });
-    });
-</script>
+<script src="js/main.js"></script>
+<!--End-slider-script-->
+
+<?php
+$logs = \R::getDatabaseAdapter()
+          ->getDatabase()
+          ->getLogger();
+
+debug( $logs->grep( 'SELECT' ) );
+?>
 </body>
 </html>
-
-
