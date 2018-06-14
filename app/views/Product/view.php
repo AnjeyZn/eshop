@@ -63,6 +63,7 @@
                           <?php endif; ?>
                           <?=$product->content;?>
 
+                            <?php if ($mods):?>
                             <div class="available">
                                 <ul>
                                     <li>Цвет
@@ -76,6 +77,7 @@
                                     <div class="clearfix"> </div>
                                 </ul>
                             </div>
+                            <?php endif;?>
 
                             <ul class="tag-men">
                                 <li><span>Category</span>
