@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Product;
+
 /**
  * Class ProductController
  *
@@ -18,17 +20,31 @@ class ProductController extends AppController {
       //TODO Залогировать отсутствующую страницу
     }
     //TODO Получить хлебные крошки
-    //TODO Получить связаные товары
+
+    //Получить связаные товары
     $related = \R::getAll("SELECT * FROM related_product JOIN product ON product.id = related_product.related_id WHERE related_product.product_id = ?", [$product->id]);
 
 
-    //TODO Запись в куки просмотренный товар
-    //TODO Получить все просмотренные товары из кук
+    //Записываем в куки просмотренный товар
+    $p_model = new Product();
+    $p_model->setRecentlyView($product->id);
+
+    //Получить все просмотренные товары из кук
+    $r_viewed = $p_model->getRecentlyView();
+    $recentlyViewed = NULL;
+
+    if ($r_viewed) {
+      $recentlyViewed = \R::find('product', 'id IN (' . \R::genSlots($r_viewed) . ') LIMIT 3', $r_viewed);
+    }
+
     //TODO Получить галерею
+    $gallery = \R::findAll('gallery', 'product_id=?', [$product->id]);
+
+
     //TODO Получить модификацию товара
 
     $this->setMeta($product->title, $product->description, $product->keywords);
-    $this->set(compact('product', 'related'));
+    $this->set(compact('product', 'related', 'gallery', 'recentlyViewed'));
   }
 
 }
