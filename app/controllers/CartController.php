@@ -12,6 +12,8 @@ use app\models\Cart;
 class CartController extends AppController {
 
   /**
+   * Добавить товар в корзину
+   *
    * @return bool
    */
   public function addAction() {
@@ -34,10 +36,45 @@ class CartController extends AppController {
     $cart = new Cart();
     $cart->addToCart($product, $qty, $mod);
 
+    // если Ajax запрос - выводим модальное окно
     if ($this->isAjax()) {
       $this->loadView('cart_modal');
     }
 
+    redirect();
+  }
+
+  /**
+   * Показать модальное окно
+   */
+  public function showAction(){
+    $this->loadView('cart_modal');
+  }
+
+  public function deleteAction(){
+    $id = !empty($_GET['id']) ? $_GET['id'] : null;
+    if(isset($_SESSION['cart'][$id])){
+      $cart = new Cart();
+      $cart->deleteItem($id);
+    }
+    if($this->isAjax()){
+      $this->loadView('cart_modal');
+    }
+    redirect();
+  }
+
+  /**
+   * Очистить корзину
+   */
+  public function clearAction() {
+    unset($_SESSION['cart']);
+    unset($_SESSION['cart.qty']);
+    unset($_SESSION['cart.sum']);
+    unset($_SESSION['cart.currency']);
+
+    if($this->isAjax()){
+      $this->loadView('cart_modal');
+    }
     redirect();
   }
 }

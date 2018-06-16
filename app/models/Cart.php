@@ -54,8 +54,50 @@ class Cart extends AppModels {
     // подсчитываем к-во товара и общую сумму
     $_SESSION['cart.qty'] = isset($_SESSION['cart.qty']) ? $_SESSION['cart.qty'] + $qty : $qty;
     $_SESSION['cart.sum'] = isset($_SESSION['cart.sum']) ? $_SESSION['cart.sum'] + $qty * ($price * $_SESSION['cart.currency']['value']) : $qty * ($price * $_SESSION['cart.currency']['value']);
+  }
 
+  /**
+   * Удаление конкретного товара из корзины
+   *
+   * @param $id
+   */
+  public function deleteItem($id) {
+    $qtyMinus = $_SESSION['cart'][$id]['qty'];
+    $sumMinus = $_SESSION['cart'][$id]['qty'] * $_SESSION['cart'][$id]['price'];
 
+    $_SESSION['cart.qty'] -= $qtyMinus;
+    $_SESSION['cart.sum'] -= $sumMinus;
+
+    unset($_SESSION['cart'][$id]);
+  }
+
+  /**
+   * Пересчет валюты
+   *
+   * @param $curr
+   */
+  public static function recalc($curr) {
+    if (isset($_SESSION['cart.currency'])) {
+      if ($_SESSION['cart.currency']['base']) {
+        $_SESSION['cart.sum'] *= $curr->value;
+      } else {
+        $_SESSION['cart.sum'] = $_SESSION['cart.sum'] / $_SESSION['cart.currency']['value'] * $curr->value;
+      }
+
+      // Пересчет валюты
+      foreach ($_SESSION['cart'] as $key => $value) {
+        if ($_SESSION['cart.currency']['base']) {
+          $_SESSION['cart'][$key]['price'] *= $curr->value;
+        } else {
+          $_SESSION['cart'][$key]['price'] = $_SESSION['cart'][$key]['price'] / $_SESSION['cart.currency']['value'] * $curr->value;
+        }
+      }
+
+      // перезаписываем активную валюту в сессию
+      foreach ($curr as $k => $v) {
+        $_SESSION['cart.currency'][$k] = $v;
+      }
+    }
   }
 
 }

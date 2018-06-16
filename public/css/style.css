@@ -293,7 +293,7 @@ span.simpleCart_total {
 	height: 0;
 	left: 13px;
 	right: 0;
-	top: 36px;
+	top: 27px;
 	background: #73B6E1;
 	overflow: hidden;
 	opacity: 0;
@@ -1958,7 +1958,7 @@ h3.ghj {
 }
 .dropdown div {
     left: 3px;
-    top: 33px;
+    top: 46px;
 }
 figure.effect-bubba h4,figure.effect-bubba h2  {
     font-size: 1.6em;
@@ -2052,6 +2052,9 @@ span.cost {
 }
 }
 @media (max-width:768px){
+.dropdown div {
+	top: 22px !important;
+}
 .top-header-left{
 	width:50%;
 	float:left;
@@ -2279,8 +2282,9 @@ a.add-cart {
 }
 @media (max-width:640px){
 .dropdown .selected, .dropdown li {
-    font-size: 11px;
+	font-size: 11px;
 }
+
 a.add-cart {
     font-size: 13px;
 }
@@ -2472,7 +2476,10 @@ h3.ghj {
 }
 @media (max-width:480px){
 .dropdown .selected, .dropdown li {
-    font-size: 10px;
+	font-size: 10px;
+}
+.dropdown div {
+	top: 41px !important;
 }
 .single-top-left {
     width: 65% !important;
@@ -3072,4 +3079,8 @@ ul.tag-men {
 
 #cart .table img {
 	height: 50px;
+}
+
+.del-item {
+	cursor: pointer;
 }
