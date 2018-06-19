@@ -21,4 +21,39 @@ class User extends AppModels {
     'email'     => '',
     'address'   => '',
   ];
+
+  /**
+   * Устанавливаем правила валидации
+   *
+   * @var array
+   */
+  public $rules = [
+    'required' => [
+      ['login'],
+      ['password'],
+      ['name'],
+      ['email'],
+      ['address'],
+    ],
+    'email' => [
+      ['email'],
+    ],
+    'lengthMin' => [
+      ['password', 6],
+    ],
+  ];
+
+  /**
+   * Получаем список ошибок валидации
+   */
+  public function getErrors() {
+    $errors = '<ul>';
+      foreach ($this->errors as $error) {
+        foreach ($error as $item) {
+          $errors .= "<li>$item</li>";
+        }
+      }
+    $errors .= '</ul>';
+      $_SESSION['error'] = $errors;
+  }
 }

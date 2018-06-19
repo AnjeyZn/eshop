@@ -5,5 +5,7 @@
       "app\\": "app"
     }
   },
-  "require": {}
+  "require": {
+    "vlucas/valitron": "^1.4"
+  }
 }
