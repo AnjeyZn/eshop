@@ -38,4 +38,12 @@ abstract class Model {
   public function __construct() {
     Db::instance();
   }
+
+  public function load($data) {
+    foreach ($this->attributes as $key => $value) {
+      if (isset($data[$key])) {
+        $this->attributes[$key] = $data[$key];
+      }
+    }
+  }
 }
