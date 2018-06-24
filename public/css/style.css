@@ -3191,3 +3191,10 @@ span.twitter-typeahead {
 	position: relative;
 	top: -2px;
 }
+
+form .has-success .form-control {
+	border-color: green;
+}
+form .has-error .form-control {
+	border-color: red;
+}

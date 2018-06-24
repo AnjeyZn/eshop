@@ -46,11 +46,29 @@ abstract class Model {
    * @param $data
    */
   public function load($data) {
-    foreach ($this->attributes as $key => $value) {
-      if (isset($data[$key])) {
-        $this->attributes[$key] = $data[$key];
+    foreach ($this->attributes as $name => $value) {
+      if (isset($data[$name])) {
+        $this->attributes[$name] = $data[$name];
       }
     }
+  }
+
+  /**
+   * Сохраняем данные из формы
+   *
+   * @param $table
+   *
+   * @return int
+   */
+  public function save($table) {
+
+    $tbl = \R::dispense($table);
+
+    foreach ($this->attributes as $key => $value) {
+      $tbl->$key = $value;
+    }
+
+    return \R::store($tbl);
   }
 
   /**

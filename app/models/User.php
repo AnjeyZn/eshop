@@ -44,6 +44,26 @@ class User extends AppModels {
   ];
 
   /**
+   * Проверка уникальности login and email
+   *
+   * @return bool
+   */
+  public function checkUnique() {
+    $user = \R::findOne('user', 'login = ? OR email = ?', [$this->attributes['login'], $this->attributes['email']]);
+
+    if ($user) {
+      if ($user->login == $this->attributes['login']) {
+        $this->errors['unique'][] = 'Этот логин уже используется!';
+      }
+      if ($user->email == $this->attributes['email']) {
+        $this->errors['unique'][] = 'Этот email уже используется!';
+      }
+      return FALSE;
+    }
+    return TRUE;
+  }
+
+  /**
    * Получаем список ошибок валидации
    */
   public function getErrors() {
