@@ -2054,6 +2054,14 @@ span.cost {
     margin-top: 3em;
 }
 }
+
+@media (min-width: 992px){
+.table-responsive.col-md-6.zakaz,
+.col-md-6.account-left.zakaz {
+	float: none;
+	margin-left: 25%;
+}
+}
 @media (max-width:768px){
 .dropdown div {
 	top: 22px !important;
@@ -3080,7 +3088,8 @@ ul.tag-men {
 	float: left;
 }
 
-#cart .table img {
+#cart img,
+.cart table img {
 	height: 50px;
 }
 

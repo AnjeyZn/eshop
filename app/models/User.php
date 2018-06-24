@@ -109,4 +109,22 @@ class User extends AppModels {
 
     return FALSE;
   }
+
+  /**
+   * Проверяем авторизован ли пользователь
+   *
+   * @return bool
+   */
+  public static function checkAuth() {
+    return isset($_SESSION['user']);
+  }
+
+  /**
+   * Проверяем роль пользователя
+   *
+   * @return bool
+   */
+  public static function isAdmin() {
+    return (isset($_SESSION['user']) && $_SESSION['user']['role'] = 'admin');
+  }
 }
