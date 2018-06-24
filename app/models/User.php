@@ -76,4 +76,37 @@ class User extends AppModels {
     $errors .= '</ul>';
       $_SESSION['error'] = $errors;
   }
+
+  /**
+   * Проверяем наличие пользователя,
+   * сверяем пароль, проверяем на админа
+   *
+   * @param bool $isAdmin
+   *
+   * @return bool
+   */
+  public function login($isAdmin = FALSE) {
+    $login = !empty(trim($_POST['login'])) ? trim($_POST['login']) : NULL;
+    $password = !empty(trim($_POST['password'])) ? trim($_POST['password']) : NULL;
+
+    if ($login && $password) {
+      if ($isAdmin) {
+        $user = \R::findOne('user', "login = ? AND role = 'admin'", [$login]);
+      } else {
+        $user = \R::findOne('user', "login = ?", [$login]);
+      }
+
+      if ($user) {
+        if (password_verify($password, $user->password)) {
+          foreach ($user as $key => $value) {
+            if ($key != 'password') $_SESSION['user'][$key] = $value;
+          }
+
+          return TRUE;
+        }
+      }
+    }
+
+    return FALSE;
+  }
 }
