@@ -1,3 +1,43 @@
+/*=== Filters ===*/
+$('body').on('change', '.w_sidebar input', function () {
+   var checked = $('.w_sidebar input:checked'),
+       data = '';
+
+   // запускаем цикл (отслеживаем состояние inputs)
+   checked.each(function () {
+      data += this.value + ',';
+   });
+
+   if (data) {
+      $.ajax({
+          url: location.href,
+          data: {filter: data},
+          type: 'GET',
+          beforeSend: function () {
+              $('.preloader').fadeIn(300, function () {
+                  $('.product-one').hide();
+              });
+          },
+          success: function (res) {
+              $('.preloader').delay(500).fadeOut('slow', function () {
+                  $('.product-one').html(res).fadeIn();
+              });
+              console.log(res);
+          },
+          error: function () {
+              alert('Ошибка!');
+          }
+      });
+   } else {
+      // когда снят последний фильтр - перезапрашиваем страницу
+      window.location = location.pathname;
+   }
+
+   //console.log(data);
+});
+
+/*=== End Filters ===*/
+
 /*=== Search ===*/
 var products = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,
