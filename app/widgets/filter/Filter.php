@@ -69,7 +69,13 @@ class Filter {
    */
   protected function getHtml() {
     ob_start();
+
+    $filter = self::getFilter();
+    if (!empty($filter)) {
+      $filter = explode(',', $filter);
+    }
     require $this->tpl;
+
     return ob_get_clean();
   }
 
@@ -95,6 +101,21 @@ class Filter {
       $attrs[$value['attr_group_id']][$key] = $value['value'];
     }
     return $attrs;
+  }
+
+  /**
+   * Обработка передаваемых значений фильтра в $_GET['filter']
+   *
+   * @return null|string
+   */
+  public static function  getFilter() {
+    $filter = NULL;
+    if (!empty($_GET['filter'])) {
+      $filter = preg_replace("#[^\d,]+#", '',$_GET['filter']);
+      $filter = trim($filter, ',');
+    }
+
+    return $filter;
   }
 
 }

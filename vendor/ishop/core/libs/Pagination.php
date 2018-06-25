@@ -144,6 +144,13 @@ class Pagination {
    */
   public function getParams() {
     $url = $_SERVER['REQUEST_URI'];
+
+    // проверяем на дублирование аттр "filter=" в url
+    preg_match_all("#filter=[\d,&]#", $url, $matches);
+    if (count($matches[0]) > 1) {
+      $url = preg_replace("#filter=[\d,&]+#", "", $url, 1);
+    }
+
     $url = explode('?', $url);
     $uri = $url[0] . '?';
 

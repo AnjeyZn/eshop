@@ -9,20 +9,31 @@ $('body').on('change', '.w_sidebar input', function () {
    });
 
    if (data) {
+      // отправка ajax запроса
       $.ajax({
           url: location.href,
           data: {filter: data},
           type: 'GET',
+          // вкл preloader перед отправкой и скрываем продукты
           beforeSend: function () {
               $('.preloader').fadeIn(300, function () {
                   $('.product-one').hide();
               });
           },
+          // при положительном ответе сервера
+          // выкл preloader и показываем продукты в соответствии
+          // с выставленными фильтрами
           success: function (res) {
               $('.preloader').delay(500).fadeOut('slow', function () {
                   $('.product-one').html(res).fadeIn();
+                  // формируем новый url добавляя фильтры
+                  var url = location.search.replace(/filter(.+?)(&|$)/g, '');
+                  var newURL = location.pathname + url + (location.search ? "&" : "?") + "filter=" + data;
+
+                  newURL = newURL.replace('&&', '&');
+                  newURL = newURL.replace('?&', '?');
+                  history.pushState({}, '', newURL);
               });
-              console.log(res);
           },
           error: function () {
               alert('Ошибка!');
