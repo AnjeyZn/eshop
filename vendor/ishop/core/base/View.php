@@ -7,130 +7,140 @@ namespace ishop\base;
  *
  * @package ishop\base
  */
-class View {
+class View
+{
 
-  /**
-   * Текущий путь
-   *
-   * @var
-   */
-  public $route;
+    /**
+     * Текущий путь
+     *
+     * @var
+     */
+    public $route;
 
-  /**
-   * Текущий контроллер
-   *
-   * @var
-   */
-  public $controller;
+    /**
+     * Текущий контроллер
+     *
+     * @var
+     */
+    public $controller;
 
-  /**
-   * Текущая модель
-   *
-   * @var
-   */
-  public $model;
+    /**
+     * Текущая модель
+     *
+     * @var
+     */
+    public $model;
 
-  /**
-   * Текущий вид
-   *
-   * @var
-   */
-  public $view;
+    /**
+     * Текущий вид
+     *
+     * @var
+     */
+    public $view;
 
-  /**
-   * Префикс ('', 'admin')
-   *
-   * @var
-   */
-  public $prefix;
+    /**
+     * Префикс ('', 'admin')
+     *
+     * @var
+     */
+    public $prefix;
 
-  /**
-   * Текущий шаблон страницы
-   *
-   * @var
-   */
-  public $layout;
+    /**
+     * Текущий шаблон страницы
+     *
+     * @var
+     */
+    public $layout;
 
-  /**
-   * Данные контента
-   *
-   * @var array
-   */
-  public $data = [];
+    /**
+     * Данные контента
+     *
+     * @var array
+     */
+    public $data = [];
 
-  /**
-   * Метаданные
-   *
-   * @var array
-   */
-  public $meta = [];
+    /**
+     * Метаданные
+     *
+     * @var array
+     */
+    public $meta = [];
 
-  /**
-   * View constructor.
-   *
-   * @param        $route
-   * @param string $layout
-   * @param string $view
-   * @param        $meta
-   */
-  public function __construct($route, $layout = '', $view = '', $meta) {
-    $this->route = $route;
-    $this->controller = $route['controller'];
-    $this->model = $route['controller'];
-    $this->view = $view;
-    $this->prefix = $route['prefix'];
-    $this->meta = $meta;
+    /**
+     * View constructor.
+     *
+     * @param        $route
+     * @param string $layout
+     * @param string $view
+     * @param        $meta
+     */
+    public function __construct($route, $layout = '', $view = '', $meta)
+    {
+        $this->route      = $route;
+        $this->controller = $route['controller'];
+        $this->model      = $route['controller'];
+        $this->view       = $view;
+        $this->prefix     = $route['prefix'];
+        $this->meta       = $meta;
 
-    if ($layout === FALSE) {
-      $this->layout = FALSE;
-    } else {
-      $this->layout = $layout ?: LAYOUT;
-    }
-  }
+        $this->prefix = str_replace('\\', '/', $this->prefix);
 
-  /**
-   * Формируем страницу
-   *
-   * @param $data
-   *
-   * @throws \Exception
-   */
-  public function render($data) {
-
-    if (is_array($data)) extract($data);
-
-    $viewFile = APP . "/views/{$this->prefix}{$this->controller}/{$this->view}.php";
-
-    if (is_file($viewFile)) {
-      ob_start();
-      require_once $viewFile;
-      $content = ob_get_clean();
-    } else {
-      throw new \Exception("Не найден вид: {$viewFile}", 500);
+        if ($layout === false) {
+            $this->layout = false;
+        } else {
+            $this->layout = $layout ?: LAYOUT;
+        }
     }
 
-    if (FALSE !== $this->layout) {
-      $layoutFile = APP . "/views/layouts/{$this->layout}.php";
+    /**
+     * Формируем страницу
+     *
+     * @param $data
+     *
+     * @throws \Exception
+     */
+    public function render($data)
+    {
 
-      if (is_file($layoutFile)) {
-        require_once $layoutFile;
-      } else {
-        throw new \Exception("Не найден шаблон: {$this->layout}", 500);
-      }
+        if (is_array($data)) {
+            extract($data);
+        }
+
+        $viewFile = APP ."/views/{$this->prefix}{$this->controller}/{$this->view}.php";
+
+        if (is_file($viewFile)) {
+            ob_start();
+            require_once $viewFile;
+            $content = ob_get_clean();
+        } else {
+            throw new \Exception("Не найден вид: {$viewFile}", 500);
+        }
+
+        if (false !== $this->layout) {
+            $layoutFile = APP."/views/layouts/{$this->layout}.php";
+
+            if (is_file($layoutFile)) {
+                require_once $layoutFile;
+            } else {
+                throw new \Exception("Не найден шаблон: {$this->layout}", 500);
+            }
+        }
     }
-  }
 
-  /**
-   * Вывод метаданных
-   *
-   * @return string
-   */
-  public function getMeta() {
-    $output = '<title>' . $this->meta['title'] . '</title>' . PHP_EOL;
-    $output .= '<meta name="description" content="' . $this->meta['desc'] . '">' . PHP_EOL;
-    $output .= '<meta name="keywords" content="' . $this->meta['keywords'] . '">' . PHP_EOL;
+    /**
+     * Вывод метаданных
+     *
+     * @return string
+     */
+    public function getMeta()
+    {
+        $output = '<title>'.$this->meta['title'].'</title>'.PHP_EOL;
+        $output .= '<meta name="description" content="'.$this->meta['desc'].'">'
+                   .PHP_EOL;
+        $output .= '<meta name="keywords" content="'.$this->meta['keywords']
+                   .'">'.PHP_EOL;
 
-    return $output;
-  }
+        return $output;
+    }
 
 }
