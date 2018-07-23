@@ -5,9 +5,17 @@ namespace app\controllers\admin;
 
 use app\models\User;
 
+/**
+ * Class UserController
+ *
+ * @package app\controllers\admin
+ */
 class UserController extends AppController
 {
 
+    /**
+     * Авторизация администратора
+     */
     public function loginAdminAction() {
 
         if (!empty($_POST)) {
