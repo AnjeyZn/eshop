@@ -5,9 +5,17 @@ namespace app\controllers\admin;
 
 use ishop\libs\Pagination;
 
+/**
+ * Class OrderController
+ *
+ * @package app\controllers\admin
+ */
 class OrderController extends AppController
 {
 
+    /**
+     * Вывод списка заказов
+     */
     public function indexAction() {
 
         $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
@@ -28,5 +36,63 @@ ORDER BY `order`.`status`, `order`.`id` LIMIT $start, $perpage");
 
         $this->setMeta('Список заказов');
         $this->set(compact('orders', 'pagination', 'count'));
+    }
+
+    /**
+     * Редактирование отдельного заказа (по ids)
+     */
+    public function viewAction() {
+        $order_id = $this->getRequestId();
+        //var_dump($order_id); die;
+
+        $order = \R::getRow("SELECT `order`.*, `user`.`name`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` 
+FROM `order` 
+JOIN `user` ON `order`.`user_id` = `user`.`id` 
+JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`
+WHERE `order`.`id` = ?
+GROUP BY `order`.`id`
+ORDER BY `order`.`status`, `order`.`id` LIMIT 1", [$order_id]);
+
+        if (!$order) {
+            throw new \Exception('Страница не найдена', 404);
+        }
+
+        $order_products = \R::findAll('order_product', "order_id = ?", [$order_id]);
+
+        $this->setMeta("Заказ № {$order_id}");
+        $this->set(compact('order', 'order_products'));
+    }
+
+    /**
+     * Обработка заказа
+     *
+     * @throws \Exception
+     */
+    public function changeAction() {
+        $order_id = $this->getRequestId();
+        $status = !empty($_GET['status']) ? '1' : '0';
+
+        $order = \R::load('order', $order_id);
+
+        if (!$order) {
+            throw new \Exception('Страница не найдена', 404);
+        }
+
+        $order->status = $status;
+        $order->update_at = date("Y-m-d H:i:s");
+        \R::store($order);
+        $_SESSION['success'] = 'Изменения сохранены';
+        redirect();
+    }
+
+    /**
+     * Удаление заказа
+     */
+    public function deleteAction() {
+        $order_id = $this->getRequestId();
+        $order = \R::load('order', $order_id);
+        \R::trash($order);
+        $_SESSION['success'] = 'Заказ удален';
+        redirect(ADMIN . '/order');
     }
 }

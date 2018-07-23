@@ -37,4 +37,29 @@ class AppController extends Controller
 
         new AppModels();
     }
+
+    /**
+     * Получение Id параметра из запроса
+     *
+     * @param bool   $get
+     * @param string $id
+     *
+     * @return int|null|string
+     * @throws \Exception
+     */
+    public function getRequestId($get = true, $id = 'id') {
+        if ($get) {
+            $data = $_GET;
+        } else {
+            $data = $_POST;
+        }
+
+        $id = !empty($data[$id]) ? (int) $data[$id] : null;
+
+        if (!$id) {
+            throw new \Exception('Страница не найдена', 404);
+        }
+
+        return $id;
+    }
 }
